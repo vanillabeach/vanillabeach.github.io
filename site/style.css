@@ -2,10 +2,8 @@
 
 @font-face {
   font-family: 'Quakiez';
-  src: url('Quakiez.otf') format('opentype'),
-    url('Quakiez.ttf') format('truetype');
-  font-style: italic;
-  font-weight: 400;
+  src: url('Quakiez.ttf') format('truetype');
+  font-weight: normal;
 }
 
 @keyframes fadeIn {
@@ -93,6 +91,8 @@ h2 {
 
 h1,
 h2 {
+  font-family: var(--header-font-family);
+  font-style: normal;
   text-shadow: 0px 2px 0px var(--header-font-shadow);
 
   @media only screen and (max-device-width: 640px) and (min-resolution: 300dpi) {
@@ -135,7 +135,6 @@ p {
   background: url('interlace.png');
   padding: 4em;
   box-sizing: border-box;
-  font-family: var(--header-font-family);
   color: var(--header-font-color);
 
   @media screen and (max-width: 1250px) {
@@ -166,7 +165,8 @@ a {
   text-decoration: underline;
   color: var(--body-font-color);
 
-  @media only screen and (max-device-width: 640px) and (min-resolution: 300dpi) {
+  @media only screen and (max-device-width: 640px) and (min-resolution: 300dpi),
+    only screen and (max-device-width: 640px) and (-webkit-min-device-pixel-ratio: 2), {
     display: block;
     max-width: 250px;
     border: 2px solid white;
