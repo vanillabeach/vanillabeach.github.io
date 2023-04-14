@@ -1,9 +1,11 @@
 class Point {
   x;
   y;
-  speed;
+  xSpeed;
+  ySpeed;
 
-  constructor(x, y, xSpeed = 1, ySpeed = 1) {
+  constructor(args) {
+    const { x, y, xSpeed, ySpeed } = args;
     this.x = x;
     this.y = y;
     this.xSpeed = xSpeed;
@@ -12,19 +14,33 @@ class Point {
 }
 
 class Sparkle {
+  backgroundColor;
   canvasElement;
   canvasContext;
   numberOfPoints;
   pointsArray;
   intervalId;
+  colorA;
+  colorB;
+  distanceThreshold;
+  resolution;
+  speedRange;
 
-  constructor(canvasElement, numberOfPoints) {
-    this.canvasElement = canvasElement;
-    this.numberOfPoints = numberOfPoints;
-    this.canvasContext = this.canvasElement.getContext('2d');
+  constructor(args) {
+    this.canvasElement = args.canvasElement;
+    this.numberOfPoints = args.numberOfPoints;
+    this.colorA = args.colorA;
+    this.colorB = args.colorB;
+    this.distanceThreshold = args.distanceThreshold;
+    this.canvasContext = this.canvasElement.getContext('2d', {
+      alpha: 'false',
+    });
+    this.resolution = args.resolution || 1;
+    this.speedRange = args.speedRange || 1;
+    this.backgroundColor = args.backgroundColor || '#222222';
 
-    this.setInitialPoints();
     this.setSize();
+    this.setInitialPoints();
     this.start();
     this.bindEvents();
   }
@@ -44,16 +60,11 @@ class Sparkle {
     colorToggle
   ) {
     const ctx = this.canvasContext;
-    const _whiteStone = [255, 255, 255];
-    const _blackStone = [0, 0, 0];
-
-    ctx.fillStyle = '#002288';
-    ctx.fillRect(0, 0, this.canvasElement.width, this.canvasElement.height);
 
     ctx.fillStyle = `rgba(
-        ${colorToggle == true ? _whiteStone[0] : _blackStone[0]},
-        ${colorToggle == true ? _whiteStone[1] : _blackStone[1]},
-        ${colorToggle == true ? _whiteStone[2] : _blackStone[2]},
+        ${colorToggle == true ? this.colorA[0] : this.colorB[0]},
+        ${colorToggle == true ? this.colorA[1] : this.colorB[1]},
+        ${colorToggle == true ? this.colorA[2] : this.colorB[2]},
         ${intensity}
       )`;
     ctx.beginPath();
@@ -65,33 +76,35 @@ class Sparkle {
   }
 
   animate() {
-    const screenWidth = window.innerWidth;
-    const screenHeight = window.innerHeight;
-    const distanceThreshold = 100;
+    const maxWidth = parseInt(this.canvasElement.getAttribute('width'), 10);
+    const maxHeight = parseInt(this.canvasElement.getAttribute('height'), 10);
+    const distanceThreshold = this.distanceThreshold;
+
+    this.paintBackground();
 
     this.pointsArray.forEach((pointA, index) => {
       // Paint
-      this.pointsArray.forEach((pointB) => {
+      for (let pointB of this.pointsArray) {
         const abx = pointA.x - pointB.x;
         const aby = pointA.y - pointB.y;
         const distanceAB = parseInt(Math.sqrt(abx * abx + aby * aby), 10);
         if (distanceAB > distanceThreshold) {
-          return;
+          continue;
         }
 
-        this.pointsArray.forEach((pointC) => {
+        for (let pointC of this.pointsArray) {
           const acx = pointA.x - pointC.x;
           const acy = pointA.y - pointC.y;
           const distanceAC = parseInt(Math.sqrt(acx * acx + acy * acy), 10);
           if (distanceAC > distanceThreshold) {
-            return;
+            continue;
           }
 
           const bcx = pointB.x - pointC.x;
           const bcy = pointB.y - pointC.y;
           const distanceBC = parseInt(Math.sqrt(bcx * bcx + bcy * bcy), 10);
           if (distanceBC > distanceThreshold) {
-            return;
+            continue;
           }
           const longestDistance = [distanceAB, distanceAC, distanceBC].reduce(
             (x, y) => Math.max(x, y)
@@ -108,51 +121,91 @@ class Sparkle {
             intensity,
             index % 2 === 0
           );
-        });
-      });
+        }
+      }
 
-      // Move Point
-      pointA.x = (pointA.x + pointA.xSpeed) % screenWidth;
-      pointA.y = (pointA.y + pointA.ySpeed) % screenHeight;
+      pointA.x = (pointA.x + pointA.xSpeed) % maxWidth;
+      pointA.y = (pointA.y + pointA.ySpeed) % maxHeight;
 
-      if (pointA.x < 0) pointA.x = screenWidth;
-      if (pointA.y < 0) pointA.y = screenHeight;
+      if (pointA.x < 0) pointA.x = maxWidth;
+      if (pointA.y < 0) pointA.y = maxHeight;
     });
   }
 
+  paintBackground() {
+    const ctx = this.canvasContext;
+    const { width, height } = this.canvasElement;
+
+    ctx.fillStyle = this.backgroundColor;
+    ctx.fillRect(0, 0, width, height);
+  }
+
   setSize() {
-    this.canvasElement.setAttribute('width', window.innerWidth);
-    this.canvasElement.setAttribute('height', window.innerHeight);
+    this.canvasElement.setAttribute(
+      'width',
+      window.innerWidth / this.resolution
+    );
+    this.canvasElement.setAttribute(
+      'height',
+      window.innerHeight / this.resolution
+    );
   }
 
   start() {
-    this.intervalId = window.setInterval(this.animate.bind(this), 10);
+    this.intervalId = window.requestAnimationFrame(() => {
+      this.animate();
+      this.start();
+    });
   }
 
   stop() {
-    window.clearInterval(this.intervalId);
+    window.cancelAnimationFrame(this.intervalId);
   }
 
   setInitialPoints() {
     const isEven = () => Math.round(Math.random() * 10) % 2 === 0;
+    const maxWidth = parseInt(this.canvasElement.getAttribute('width'), 10);
+    const maxHeight = parseInt(this.canvasElement.getAttribute('height'), 10);
+
     this.pointsArray = [];
-    const screenWidth = window.innerWidth;
-    const screenHeight = window.innerHeight;
 
     for (let count = 0; count < this.numberOfPoints; count += 1) {
-      const startX = Math.random() * screenWidth;
-      const startY = Math.random() * screenHeight;
-      const xSpeed = Math.random() * 5 * (isEven() ? 1 : -1);
-      const ySpeed = Math.random() * 5 * (isEven() ? 1 : -1);
+      const startX = Math.random() * maxWidth;
+      const startY = Math.random() * maxHeight;
+      const xSpeed = Math.random() * this.speedRange * (isEven() ? 1 : -1);
+      const ySpeed = Math.random() * this.speedRange * (isEven() ? 1 : -1);
 
-      this.pointsArray.push(new Point(startX, startY, xSpeed, ySpeed));
+      this.pointsArray.push(
+        new Point({ x: startX, y: startY, xSpeed: xSpeed, ySpeed: ySpeed })
+      );
     }
   }
 }
 
 (function () {
-  const sparkleCanvasElement = document.getElementById('sparkle');
-  const numberOfPoints = 100;
+  const sparkleCanvasElement1 = document.getElementById('sparkle-1');
+  const sparkleCanvasElement2 = document.getElementById('sparkle-2');
 
-  new Sparkle(sparkleCanvasElement, numberOfPoints);
+  const resolution = 4;
+  const numberOfPoints = 100;
+  const distanceThreshold = 50;
+
+  const baseArgs = {
+    numberOfPoints: numberOfPoints,
+    colorA: [255, 255, 255],
+    colorB: [0, 0, 0],
+    distanceThreshold: distanceThreshold,
+    resolution: resolution,
+    speedRange: 1,
+  };
+
+  new Sparkle({
+    canvasElement: sparkleCanvasElement1,
+    ...baseArgs,
+  });
+
+  new Sparkle({
+    canvasElement: sparkleCanvasElement2,
+    ...baseArgs,
+  });
 })();

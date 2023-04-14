@@ -1,6 +1,7 @@
 body {
   padding: 0;
   margin: 0;
+  background-color: #000000;
 }
 
 .sparkle,
@@ -16,10 +17,19 @@ body {
   background: url('bg.jpg') center center;
   background-size: cover;
   z-index: 0;
+  opacity: 0.5;
 }
 
 .sparkle {
-  z-index: 1;
   mix-blend-mode: multiply;
-  background-color: #028;
+  opacity: 0.3;
+  filter: blur(5px);
+}
+
+.sparkle-1 {
+  z-index: 1;
+}
+
+.sparkle-2 {
+  z-index: 2;
 }
