@@ -190,7 +190,6 @@ class Sparkle {
 (function () {
   const sparkleCanvasElement1 = document.getElementById('sparkle-1');
   const sparkleCanvasElement2 = document.getElementById('sparkle-2');
-
   const resolution = 4;
   const distanceThreshold = 50;
 
