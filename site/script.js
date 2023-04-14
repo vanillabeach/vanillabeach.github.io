@@ -17,18 +17,23 @@ class Sparkle {
   backgroundColor;
   canvasElement;
   canvasContext;
-  numberOfPoints;
-  pointsArray;
-  intervalId;
+  distanceThreshold;
   colorA;
   colorB;
-  distanceThreshold;
+  intervalId;
+  numberOfPoints;
+  pointsArray;
   resolution;
   speedRange;
 
+  static getNumberOfPoints() {
+    const throttle = 20000;
+    return Math.min((screen.width * screen.height) / throttle, 75);
+  }
+
   constructor(args) {
     this.canvasElement = args.canvasElement;
-    this.numberOfPoints = args.numberOfPoints;
+    this.numberOfPoints = Sparkle.getNumberOfPoints();
     this.colorA = args.colorA;
     this.colorB = args.colorB;
     this.distanceThreshold = args.distanceThreshold;
@@ -40,7 +45,6 @@ class Sparkle {
     this.backgroundColor = args.backgroundColor || '#222222';
 
     this.setSize();
-    this.setInitialPoints();
     this.start();
     this.bindEvents();
   }
@@ -83,7 +87,6 @@ class Sparkle {
     this.paintBackground();
 
     this.pointsArray.forEach((pointA, index) => {
-      // Paint
       for (let pointB of this.pointsArray) {
         const abx = pointA.x - pointB.x;
         const aby = pointA.y - pointB.y;
@@ -124,11 +127,11 @@ class Sparkle {
         }
       }
 
-      pointA.x = (pointA.x + pointA.xSpeed) % maxWidth;
-      pointA.y = (pointA.y + pointA.ySpeed) % maxHeight;
+      pointA.x = (pointA.x + pointA.xSpeed) % (maxWidth + maxWidth * 0.1);
+      pointA.y = (pointA.y + pointA.ySpeed) % (maxHeight + maxHeight * 0.1);
 
-      if (pointA.x < 0) pointA.x = maxWidth;
-      if (pointA.y < 0) pointA.y = maxHeight;
+      if (pointA.x < screen.width / -10) pointA.x = maxWidth;
+      if (pointA.y < screen.height / -10) pointA.y = maxHeight;
     });
   }
 
@@ -149,6 +152,8 @@ class Sparkle {
       'height',
       window.innerHeight / this.resolution
     );
+    this.numberOfPoints = Sparkle.getNumberOfPoints();
+    this.resetPoints();
   }
 
   start() {
@@ -162,7 +167,7 @@ class Sparkle {
     window.cancelAnimationFrame(this.intervalId);
   }
 
-  setInitialPoints() {
+  resetPoints() {
     const isEven = () => Math.round(Math.random() * 10) % 2 === 0;
     const maxWidth = parseInt(this.canvasElement.getAttribute('width'), 10);
     const maxHeight = parseInt(this.canvasElement.getAttribute('height'), 10);
@@ -187,13 +192,9 @@ class Sparkle {
   const sparkleCanvasElement2 = document.getElementById('sparkle-2');
 
   const resolution = 4;
-  const numberOfPoints = 100;
   const distanceThreshold = 50;
 
   const baseArgs = {
-    numberOfPoints: numberOfPoints,
-    colorA: [255, 255, 255],
-    colorB: [0, 0, 0],
     distanceThreshold: distanceThreshold,
     resolution: resolution,
     speedRange: 1,
@@ -201,11 +202,15 @@ class Sparkle {
 
   new Sparkle({
     canvasElement: sparkleCanvasElement1,
+    colorA: [255, 255, 255],
+    colorB: [0, 0, 0],
     ...baseArgs,
   });
 
   new Sparkle({
     canvasElement: sparkleCanvasElement2,
+    colorA: [128, 128, 160],
+    colorB: [0, 0, 0],
     ...baseArgs,
   });
 })();
