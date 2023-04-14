@@ -8,6 +8,33 @@
   font-weight: 400;
 }
 
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeSparkles {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  66% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0.125;
+  }
+}
+
 :root {
   --body-font-family: 'IBM Plex Sans', sans-serif;
   --body-font-color: '#ffffff';
@@ -19,10 +46,14 @@
   --header-font-shadow: #000000;
 }
 
+html {
+  background-color: #000000;
+}
+
 body {
+  animation: fadeIn 1s;
   padding: 0;
   margin: 0;
-  background-color: #000000;
   line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -64,7 +95,7 @@ h1,
 h2 {
   text-shadow: 0px 2px 0px var(--header-font-shadow);
 
-  @media only screen and (max-device-width: 500px) and (-webkit-min-device-pixel-ratio: 2) {
+  @media only screen and (max-device-width: 640px) and (min-resolution: 300dpi) {
     text-align: center;
   }
 }
@@ -75,7 +106,7 @@ p {
   text-shadow: 0px 2px 0px var(--body-font-shadow);
   line-height: 1.5;
 
-  @media only screen and (max-device-width: 500px) and (-webkit-min-device-pixel-ratio: 2) {
+  @media only screen and (max-device-width: 640px) and (min-resolution: 300dpi) {
     margin-top: 2rem;
     margin-bottom: 2rem;
     text-align: center;
@@ -117,8 +148,9 @@ p {
 }
 
 .sparkle {
-  mix-blend-mode: color-dodge;
   opacity: 0.125;
+  animation: fadeSparkles 5s;
+  mix-blend-mode: color-dodge;
   filter: blur(10px);
 }
 
@@ -134,7 +166,7 @@ a {
   text-decoration: underline;
   color: var(--body-font-color);
 
-  @media only screen and (max-device-width: 640px) and (-webkit-min-device-pixel-ratio: 2) {
+  @media only screen and (max-device-width: 640px) and (min-resolution: 300dpi) {
     display: block;
     max-width: 250px;
     border: 2px solid white;
@@ -150,7 +182,7 @@ a {
 
 .interpunct {
   display: inline;
-  @media only screen and (max-device-width: 640px) and (-webkit-min-device-pixel-ratio: 2) {
+  @media only screen and (max-device-width: 640px) and (min-resolution: 300dpi) {
     display: none;
   }
 }
