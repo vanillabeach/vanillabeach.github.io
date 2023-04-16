@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,200;0,300;0,400;0,500;1,200;1,300;1,400;1,500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,200;0,300;0,400;0,500;1,200;1,300;1,400;1,500&display=swap");
 
 @font-face {
-  font-family: 'Quakiez';
-  src: url('Quakiez.ttf') format('truetype');
+  font-family: "Quakiez";
+  src: url("Quakiez.ttf") format("truetype");
   font-weight: normal;
 }
 
@@ -22,9 +22,6 @@
   0% {
     opacity: 1;
   }
-  50% {
-    opacity: 1;
-  }
   66% {
     opacity: 0.5;
   }
@@ -34,22 +31,25 @@
 }
 
 :root {
-  --body-font-family: 'IBM Plex Sans', sans-serif;
-  --body-font-color: '#ffffff';
-  --body-font-shadow: '#000000';
-  --button-bg-color: '#ffffff';
-  --button-fg-color: '#000000';
-  --header-font-family: 'Quakiez', 'Helvetica', 'Arial', 'sans-serif';
+  --body-font-family: "IBM Plex Sans", sans-serif;
+  --body-font-color: "#ffffff";
+  --body-font-shadow: "#000000";
+  --button-bg-color: "#ffffff";
+  --button-fg-color: "#000000";
+  --header-font-family: "Quakiez", "Helvetica", "Arial", "sans-serif";
   --header-font-color: #ffffff;
   --header-font-shadow: #000000;
 }
 
 html {
-  background-color: #000000;
+  background-color: #ffffff;
 }
 
 body {
-  animation: fadeIn 1s;
+  opacity: 0;
+  animation: fadeIn 1500ms;
+  animation-delay: 200ms;
+  animation-fill-mode: forwards;
   padding: 0;
   margin: 0;
   line-height: 1;
@@ -113,7 +113,12 @@ p {
   }
 }
 
+.background-color {
+  background-color: #000000;
+}
+
 .sparkle,
+.background-color,
 .background,
 .content {
   position: absolute;
@@ -124,7 +129,8 @@ p {
 }
 
 .background {
-  background: url('bg.jpg') center center;
+  background-color: black;
+  background: url("bg.jpg") center center;
   background-size: cover;
   z-index: 0;
   opacity: 0.5;
@@ -132,7 +138,7 @@ p {
 
 .content {
   z-index: 3;
-  background: url('interlace.png');
+  background: url("interlace.png");
   padding: 4em;
   box-sizing: border-box;
   color: var(--header-font-color);
@@ -147,8 +153,10 @@ p {
 }
 
 .sparkle {
-  opacity: 0.125;
+  opacity: 1;
   animation: fadeSparkles 5s;
+  animation-delay: 2s;
+  animation-fill-mode: forwards;
   mix-blend-mode: color-dodge;
   filter: blur(10px);
 }
