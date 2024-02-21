@@ -11,15 +11,15 @@
   </head>
 
   <body>
-    <article class="content">
+    <article class="content" aria-label="John-Paul Holt's CV">
       <h1>John-Paul Holt</h1>
-      <h2>UX Engineer</h2>
+      <h2>UX & Front End Engineer</h2>
       <p>
         Expert Front-End Engineer for both Web and Mobile. New website coming
         soon.
       </p>
       <p>
-        <a target="_blank" href="site/cv.pdf">CV / Resume</a>
+        <a target="_blank" href="site/john-paul-holt.pdf">CV / Resume</a>
         <span class="interpunct">&middot;</span>
         <a target="_blank" href="mailto:john@jpholt.dev">E-Mail</a>
         <span class="interpunct">&middot;</span>
@@ -28,12 +28,17 @@
         >
       </p>
     </article>
-    <canvas id="sparkle-1" class="sparkle sparkle-1"></canvas>
-    <canvas id="sparkle-2" class="sparkle sparkle-2"></canvas>
 
-    <div class="background-color">
-      <div id="background" class="background"></div>
+    <div aria-description="Sparkling background effect that makes the photo glitter for a few seconds">
+      <canvas id="sparkle-1" class="sparkle sparkle-1"></canvas>
+      <canvas id="sparkle-2" class="sparkle sparkle-2"></canvas>
+      </div>
+      <div class="background-color">
+        <div id="background" class="background"></div>
+      </div>
     </div>
+
+    <!-- In case you're curious, I left the script unminified ;) -->
     <script src="site/script.js"></script>
   </body>
 </html>
