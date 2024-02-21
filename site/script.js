@@ -1,3 +1,7 @@
+/**
+ * I left this deliberately unminified for all the curious engineers out there...
+ */
+
 class Point {
   x;
   y;
