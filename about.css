@@ -64,31 +64,34 @@ header {
   background-color: var(--foreground);
   color: var(--on-foreground);
   border-radius: var(--border-curve);
-  width: 2.75rem;
-  height: 2.75rem;
+
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0;
-  padding: 0;
   box-sizing: border-box;
   border: 2px solid var(--background);
   text-decoration: none;
+  line-height: 0;
+  padding: 0.75rem;
 
   @media (max-width: 800px) {
-    width: 1.75rem;
-    height: 1.75rem;
+    padding: 0.3rem;
   }
 }
 
 .home-link > figure {
-  display: inline-block;
+  display: block;
+  width: 1.25rem;
+  height: 1.25rem;
+  background: url('exit.svg') center center no-repeat;
+  background-size: contain;
+  padding: 0;
+  margin: 0;
 
-  text-align: center;
-  vertical-align: middle;
-  font-size: 1.75rem;
   @media (max-width: 800px) {
-    font-size: 1.25rem;
+    width: 0.625rem;
+    height: 0.625rem;
   }
 }
 
