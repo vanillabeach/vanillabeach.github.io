@@ -83,7 +83,6 @@ header {
 
 .home-link > figure {
   display: inline-block;
-  transform: rotateZ(-90deg);
 
   text-align: center;
   vertical-align: middle;
