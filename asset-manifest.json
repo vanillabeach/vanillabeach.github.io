@@ -1,9 +1,8 @@
 {
   "files": {
-    "main.css": "/static/css/main.c54a1b24.css",
-    "main.js": "/static/js/main.dd78f043.js",
+    "main.css": "/static/css/main.1b3617f5.css",
+    "main.js": "/static/js/main.4b18913a.js",
     "static/media/base.svg": "/static/media/base.ac180c4f2d7a7a85b73bea7ea83d1d3e.svg",
-    "static/media/background.svg": "/static/media/background.853400eaa0ba8b35810102c85e7fa16f.svg",
     "static/media/circuits.webp": "/static/media/circuits.0fee958676b9af249ee8.webp",
     "static/media/3d-base.png": "/static/media/3d-base.5ff2d49c34d0abfcc935.png",
     "static/media/nokia-bg.webp": "/static/media/nokia-bg.c4eeae3dea6321e3f4c7.webp",
@@ -16,9 +15,11 @@
     "static/media/art-12.svg": "/static/media/art-12.b504e7f1940ea3843d0a4980d9a1706a.svg",
     "static/media/art-10.svg": "/static/media/art-10.ffbe24d44038b6ee31a3347e694f1f0a.svg",
     "static/media/art-2.svg": "/static/media/art-2.c02ea209d2be55c78868425a6f3c17f0.svg",
+    "static/media/background.webp": "/static/media/background.b6ec9c156a92647fcd92.webp",
     "static/media/art-11.svg": "/static/media/art-11.eb63e2da432094ebd38605ffcc060001.svg",
     "static/media/art-8.svg": "/static/media/art-8.58924c23ff7e0677bfb860b7f3586216.svg",
     "static/media/phaidra-tech.svg": "/static/media/phaidra-tech.680e0b9cd978565f8ae652e305e37c9a.svg",
+    "static/media/background.svg": "/static/media/background.7a5e7e32a69db5c256d8ac3fb0f74fa2.svg",
     "static/media/art-14.svg": "/static/media/art-14.564e962e092c773aa59b0a7d252e659d.svg",
     "static/media/art-1.svg": "/static/media/art-1.6a6f88e314bd24f5ae4a9237eb0ceeb5.svg",
     "static/media/device-laptop.webp": "/static/media/device-laptop.d6f1e3544b2bee129998.webp",
@@ -58,11 +59,11 @@
     "static/media/icon18.webp": "/static/media/icon18.d116d766ade6fd718aff.webp",
     "static/media/icon33.webp": "/static/media/icon33.9f671729a6bd16773f7b.webp",
     "index.html": "/index.html",
-    "main.c54a1b24.css.map": "/static/css/main.c54a1b24.css.map",
-    "main.dd78f043.js.map": "/static/js/main.dd78f043.js.map"
+    "main.1b3617f5.css.map": "/static/css/main.1b3617f5.css.map",
+    "main.4b18913a.js.map": "/static/js/main.4b18913a.js.map"
   },
   "entrypoints": [
-    "static/css/main.c54a1b24.css",
-    "static/js/main.dd78f043.js"
+    "static/css/main.1b3617f5.css",
+    "static/js/main.4b18913a.js"
   ]
 }
