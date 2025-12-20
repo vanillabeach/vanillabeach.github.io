@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/il-presentation/static/css/main.369a6dfb.css",
+    "main.js": "/il-presentation/static/js/main.7caaf9b6.js",
+    "static/media/design-language-bg.svg": "/il-presentation/static/media/design-language-bg.3b813642c369152806f99f4838811555.svg",
+    "static/media/background.svg": "/il-presentation/static/media/background.8be1fd960c7e4d904381.svg",
+    "index.html": "/il-presentation/index.html",
+    "main.369a6dfb.css.map": "/il-presentation/static/css/main.369a6dfb.css.map",
+    "main.7caaf9b6.js.map": "/il-presentation/static/js/main.7caaf9b6.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.369a6dfb.css",
+    "static/js/main.7caaf9b6.js"
+  ]
+}
